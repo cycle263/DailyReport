@@ -1,0 +1,107 @@
+<div class="navbar">
+    <nav class="main-nav navbar-inner">
+        <a class="brand" href="">Title</a>
+        <ul class="nav">
+            <li ng-click="mainNav()" ng-class="{active: curNav=='main'}"><a href="#/main">Main</a></li> 
+            <li ng-click="adminNav()" ng-class="{active: curNav=='admin'}"><a href="#/admin">Admin</a></li>
+            <li ng-class="{active: curNav=='about'}"><a href="">About</a></li>      
+        </ul> 
+        <div class="login-info" ng-click="logout()"><i class="login-icon"></i><span>{{vals.fullname}}</span></div>       
+    </nav>
+</div>
+<aside class="main-aside">
+    <ul class="nav nav-list nav-aside-list">
+        <li ng-click="createReport()" ng-class="{active: curUl=='createReport'}"><a href="">Create Daily Report<i class="icon-chevron-right"></i></a></li>
+        <li ng-click="reportHistory()" ng-class="{active: curUl=='reportHistory'}"><a href="">View Personal History<i class="icon-chevron-right"></i></a></li>
+        <li ng-show="isManager" ng-click="employeeReport()" ng-class="{active: curUl=='employeeReport'}"><a href="">Employee Report<i class="icon-chevron-right"></i></a></li>        
+    </ul>
+</aside>
+<div class="main-content" ng-switch on="switchVal">
+
+    <div class="create-report" ng-switch-default="createReport">
+        <h2>Create Daily Report</h2>
+        <form class="content-form">
+            <label>Creat Date</label><input ng-model="reqs.created" type="text" disabled="true" />
+            <label>Region</label><input type="text" disabled="true" value="CD" /><br />
+            <label>Report To</label>
+            <select multiple ng-model="reqs.reportTo" ng-options="o.username as o.fullname for o in ress.managers" required></select>
+            <label>Item Status</label><select required ng-model="reqs.status" ng-change="statusChange()">
+                <option value="done">Done</option>
+                <option value="processing">Processing</option>
+            </select>
+            <label ng-show="showState">State</label><input ng-model="reqs.state" ng-show="showState" type="number" maxlength="3" max="100" min="0" /><strong ng-show="showState">%</strong><br />
+            <label>Item Content</label><textarea ng-model="reqs.content" rows="3" required placeholder="Input Report Content"></textarea>
+            <label>Comment (optional)</label><textarea ng-model="reqs.comment" rows="3" placeholder="Input Comment"></textarea><br />
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            <button ng-disabled="!reqs.content || !reqs.reportTo || !reqs.status" class="btn" type="submit" ng-click="newReport()">Submit</button>
+        </form>
+    </div>
+
+    <div class="report-history" ng-switch-when="reportHistory">
+        <h2>Daily Report History</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Create Date</th>
+                <th>Content</th>
+                <th>Item Status</th>
+                <th>Item State</th>
+                <th>Comment</th>
+                <th>Report To</th>
+            </tr>
+            <tr ng-repeat="item in pRess | orderBy: 'id'">
+                <td>{{item.id}}</td>
+                <td>{{item.created | date:'yyyy-MM-dd'}}</td>
+                <td><pre>{{item.content}}</pre></td>
+                <td>{{item.status}}</td>
+                <td>{{item.state}}</td>
+                <td>{{item.comment}}</td>
+                <td>{{item.reportTo}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="employee-report" ng-switch-when="employeeReport">
+        <h2>Employee Report List</h2>
+        <div class="employee-options">
+            <label>Employee <select ng-model="ques.employee" ng-options="o.username as o.fullname for o in ress.employees">
+                <option>All</option>
+            </select></label>
+            <label>Begin
+            <input class="date-calendar" type="text" datepicker-popup="yyyy-MM-dd" ng-model="dates.dts" open="opened1" min="'2013-01-01'" ng-change="startDateChange()" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />  
+            </label>    
+            <label>End
+            <input class="date-calendar" type="text" datepicker-popup="yyyy-MM-dd" ng-model="dates.dte" open="opened2" min="dates.dts" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />  
+            </label>  
+
+            <button class="btn" ng-click="getEmployeeReports()">Query</button> 
+            <button class="btn" ng-click="exportReports()">Export</button> 
+        </div>
+        <a id="download-ele" ng-show="false" href="http://10.16.86.152:3000/download">Export</a>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Creater</th>
+                <th>Create Date</th>
+                <th>Content</th>
+                <th>Item Status</th>
+                <th>Item State</th>
+                <th>Comment</th>
+            </tr>
+            <tr ng-repeat="item in eRess | orderBy:'id'">
+                <td>{{item.id}}</td>
+                <td>{{item.user}}</td>
+                <td>{{item.created | date:'yyyy-MM-dd'}}</td>
+                <td><pre>{{item.content}}</pre></td>
+                <td>{{item.status}}</td>
+                <td>{{item.state}}</td>
+                <td>{{item.comment}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>  
+<footer class="navbar-inner footer-text">
+    CopyRight © 2013 - 2020 Daily Report Web Application By MoltBoy | Legal prosecution rights reserved
+</footer> 
