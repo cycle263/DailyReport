@@ -1,0 +1,77 @@
+<div class="navbar">
+    <nav class="main-nav navbar-inner">
+        <a class="brand" href="">Title</a>
+        <ul class="nav">
+            <li ng-click="mainNav()" ng-class="{active: curNav=='main'}"><a href="#/main">Main</a></li> 
+            <li ng-click="adminNav()" ng-class="{active: curNav=='admin'}"><a href="#/admin">Admin</a></li>
+            <li ng-class="{active: curNav=='about'}"><a href="">About</a></li>      
+        </ul> 
+        <div class="login-info" ng-click="logout()"><i class="login-icon"></i><span>{{vals.fullname}}</span></div>       
+    </nav>
+</div>
+<aside class="main-aside">
+    <ul class="nav nav-list nav-aside-list">
+        <li ng-show="isManager" ng-click="createUser()" ng-class="{active: curUl=='createUser'}"><a href="">Create Report User<i class="icon-chevron-right"></i></a></li>
+        <li ng-click="viewUser()" ng-class="{active: curUl=='viewUser'}"><a href="">View Report User<i class="icon-chevron-right"></i></a></li>
+    </ul>
+</aside>
+
+<div class="main-content" ng-switch on="switchVal">
+    <div ng-switch-when="createUser">
+        <h2>Create Report User</h2>
+        <form class="content-form">
+            <label>User Name</label><input ng-model="reqs.username" type="text" required />
+            <label>Password</label><input type="password" ng-model="reqs.firstPwd" required />
+            <span class="show-error" ng-show="errors.emptypasswordError">Please input first password</span><br />   
+            <label>re-Password</label><input type="password" confirmpassword ng-model="reqs.secondPwd" required />
+            <span class="show-error" ng-show="errors.confirmpasswordError">Repeat password verify failure</span><br />  
+            <label>Full Name</label><input ng-model="reqs.fullname" type="text" required />  
+            <label>Region</label>
+            <select ng-model="reqs.region" required>
+                <option>CD</option>
+                <option>US</option>
+                <option>TW</option>
+                <option>SH</option>
+            </select>  
+            <label>Report To</label>
+            <select multiple ng-model="reqs.reportTo" ng-options="o.username as o.fullname for o in ress.managers" required>
+
+            </select> 
+            <label>IsManager</label>
+            <label class="line-label"><input name="isManager" type="radio" ng-model="reqs.isManager" value="manager" required/>Manager</label>
+            <label class="line-label"><input name="isManager" type="radio" ng-model="reqs.isManager" value="normal" required/>Normal</label><br />  
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            <input ng-disabled="!reqs.username || !reqs.firstPwd || !reqs.fullname || !reqs.region || !reqs.secondPwd || !reqs.reportTo || !reqs.isManager" type="submit" class="btn" ng-click="submitUser(createAction)" value="Submit" />
+        </form>
+    </div>
+    <div class="viewUser" ng-switch-default="viewUser">
+        <h2>View Report User</h2>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>Full Name</th>
+                <th>Region</th>
+                <th>Employee Type</th>
+                <th>Report To</th>
+                <th>Create Date</th>
+                <th ng-show="isManager" colspan="2"><i class="icon-plus" ng-click="createUser()"></i></th>
+            </tr>
+            <tr ng-repeat="item in ress.users | orderBy: 'id'">
+                <td>{{item.id}}</td>
+                <td>{{item.username}}</td>
+                <td>{{item.fullname}}</td>
+                <td>{{item.region}}</td>
+                <td>{{item.account}}</td>
+                <td>{{item.reportTo}}</td>
+                <td>{{item.created | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td ng-show="isManager"><i class="icon-edit" ng-click="editUser(item)"></i></td>
+                <td ng-show="isManager"><i class="icon-remove" ng-click="removeUser(item)"></i></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<footer class="navbar-inner footer-text">
+    CopyRight © 2013 - 2020 Daily Report Web Application By MoltBoy | Legal prosecution rights reserved
+</footer> 
