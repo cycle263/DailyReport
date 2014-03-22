@@ -1,0 +1,45 @@
+/******* login css *******/
+html,body{height: 100%}
+body{background: url(../img/wood_pattern.jpg) repeat;font: 13px/1.2 Georgia;}
+
+.login-container{width: 500px;height: 260px;margin: 180px auto;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 1px 5px rgba(0, 0, 0, 0.2), 0 0 0 13px rgba(255, 255, 255, 0.4);border-radius: 10px;padding: 2em 0px;background-color: #FFFAF6;}
+.login-container h2{margin-top: 8px;text-align: center;color: #443;}
+.login-container form{margin-top: 42px;}
+.login-container form label{font-family: 'Lato';text-transform: uppercase;}
+.login-container .control-group{margin-bottom: 32px;}
+
+/******* main css *******/
+.navbar{position: fixed;top: 0;width: 100%;z-index: 2}
+.main-nav{height:40px;}
+.main-aside{position: fixed;top: 80px;}
+.nav-aside-list {background-color: #FFFFFF;border-radius: 6px;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);margin: 24px 0 0;  padding: 0;width: 200px;position: fixed;margin-left: 42px;}
+.nav-aside-list li a{line-height: 36px;border: 1px solid #E5E5E5;width: 183px;background-color: #FFFFFF;}
+.navbar ul.nav > li > a{padding:10px 28px;}
+.nav-aside-list > li:first-child > a {border-radius: 6px 6px 0 0;}
+.nav-aside-list > li:last-child > a {border-radius: 0 0 6px 6px;}
+ul.nav-aside-list li a i.icon-chevron-right{float: right;margin-right: -6px;margin-top: 8px;}
+
+.main-content{margin-left: 242px;min-height: 88%;background-color: #fff;opacity: 0.75;padding: 2em;position: relative;margin-top: 41px;padding-left: 4em;}
+.footer-text{text-align: center;line-height: 40px;position: fixed;bottom: 0;width: 100%;padding: 0;}
+.content-form{width: 85%;padding:2em 1em;border: 2px solid #ddd;border-radius: 6px;min-height: 60%;line-height: 36px;padding-left: 2em;}
+.content-form textarea{width: 80%;}
+.content-form label{cursor: default;}
+.main-content h2{text-align: left;padding-left: 10em;margin-bottom: 0.8em;}
+div.main-content table tr th{background-color: #D9EDF7 !important;}
+
+div.main-content > div > table{margin-top: 28px;}
+.report-history table{width: 90%;}
+.date-calendar{background: url("../img/Calendar-icon.png") no-repeat;background-size:26px 26px;padding-left: 32px !important;}
+.employee-options label{float: left;height:42px;line-height: 42px;vertical-align: middle;margin-right: 32px;}
+.employee-options > label > input{width: 190px;}
+.line-label{display: inline-block;height: 32px;line-height: 32px;min-width: 120px;}
+.line-label input[type='radio']{margin: 4px;vertical-align: middle;}
+.show-error{background-color: #C43C35;background-image: linear-gradient(center top , #EE5F5B, #C43C35);background-repeat: repeat-x;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);color:#fff;display: inline-block;height: 24px;line-height: 24px;border-radius: 5px;padding:2px 12px;vertical-align: top;border-style: solid;border-width: 1px; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset;}
+
+[class^="icon-"]{cursor: pointer;}
+.viewUser > table,.report-history > table,.employee-report > table{width: 1050px;}
+.login-info{float: right;display: table-cell;text-align: center;vertical-align: middle;padding: 6px;height: 28px;line-height: 28px;cursor: pointer;}
+.login-icon{width:28px;height:28px;background: url(../img/exit.png) no-repeat;display: inline-block;margin-right: 6px;}
+.login-info span{vertical-align: top;padding-bottom: 18px;font-size: 18px;font-family: Georgia;}
+.login-info:hover{color: red;}
+.main-content table tr td pre{border: none;margin-bottom: 0;background-color: transparent;padding: 2px;}
