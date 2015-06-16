@@ -1,0 +1,183 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="highstock.js"></script>
+        <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+        <script>
+            $(function() {
+    
+                Highcharts.setOptions({
+                    global : {
+                        useUTC : false
+                    }
+                });
+                
+                // Create the chart
+                $('#container').highcharts('StockChart', {
+                    chart : {
+                         type: 'spline',
+                        animation: Highcharts.svg,
+                        events : {
+                            load : function() {
+
+                                // set up the updating of the chart each second
+                                // 
+                                var series0 = this.series[0];
+                                var series1 = this.series[1];
+                                var series2 = this.series[2];
+                                var series3 = this.series[3];
+                                setInterval(function() {
+                                    var x = (new Date()).getTime(), // current time
+									y0 = Math.round(Math.random() * 100),
+									y1 = Math.round(Math.random() * 100),
+									y2 = Math.round(Math.random() * 100),
+                                    y3 = Math.round(Math.random() * 100);
+									series0.addPoint([x, null], true, false);
+									series1.addPoint([x, y1], true, false);
+									series2.addPoint([x, y2], true, false);
+                                    series3.addPoint([x, y3], true, false);
+                                }, 1000);
+                            }
+                        }
+                    },
+                    
+                    rangeSelector: {
+                        buttons: [{
+                            count: 1,
+                            type: 'minute',
+                            text: '1M'
+                        }, {
+                            count: 5,
+                            type: 'minute',
+                            text: '5M'
+                        }, {
+                            type: 'all',
+                            text: 'All'
+                        }],
+                        inputEnabled: false,
+                        selected: 0
+                    },
+					
+					colors: [
+					   '#F17141', 
+					   '#FFD512', 
+					   '#E58E10', 
+					   '#6693B0', 
+					   '#A5BC4E', 
+					   '#CACA9E',
+					   '#1B95D9', 
+					   '#86D1E4', 
+					],
+					
+					navigator: {
+						enabled: true
+					},
+                    
+                    title : {
+                        text : 'Live random data'
+                    },
+                    
+                    exporting: {
+                        enabled: false
+                    },
+                    
+                    //曲线选中器的配置信息
+                    legend: {
+                        enabled: true,
+                        align: 'right',
+                        backgroundColor: '#FCFFC5',
+                        borderColor: 'black',
+                        borderWidth: 2,
+                        layout: 'vertical',
+                        verticalAlign: 'top',
+                        itemMarginTop: 2,
+                        itemMarginBottom: 2,
+                        y: 30,
+                        shadow: true,
+                        maxHeight:220,
+                        itemStyle: {
+                            fontSize: '12px'
+                        },
+						title:{
+							text: '曲线选择'
+						},
+                        navigation: {
+                            activeColor: '#3E576F',
+                            animation: true,
+                            arrowSize: 10,
+                            inactiveColor: '#CCC',
+                            style: {
+                                color: '#333'
+                            }
+                        }
+                    },
+                    
+                    series : [{
+                        name : 'Random data0',
+                        data : (function() {
+                            // generate an array of random data
+                            var data = [], time = (new Date()).getTime(), i;
+
+                            for( i = -99; i <= 0; i++) {
+                                data.push([
+                                    time + i * 1000,
+                                    null
+                                ]);
+                            }
+                            return data;
+                        })()
+                    },{
+                        name : 'Random data1',
+                        data : (function() {
+                            // generate an array of random data
+                            var data = [], time = (new Date()).getTime(), i;
+
+                            for( i = -99; i <= 0; i++) {
+                                data.push([
+                                    time + i * 1000,
+                                    Math.round(Math.random() * 100)
+                                ]);
+                            }
+                            return data;
+                        })()
+                    },{
+                        name : 'Random data2',
+                        data : (function() {
+                            // generate an array of random data
+                            var data = [], time = (new Date()).getTime(), i;
+
+                            for( i = -99; i <= 0; i++) {
+                                data.push([
+                                    time + i * 1000,
+                                    Math.round(Math.random() * 100)
+                                ]);
+                            }
+                            return data;
+                        })()
+                    },{
+                        name : 'Random data3',
+                        data : (function() {
+                            // generate an array of random data
+                            var data = [], time = (new Date()).getTime(), i;
+
+                            for( i = -99; i <= 0; i++) {
+                                data.push([
+                                    time + i * 1000,
+                                    Math.round(Math.random() * 100)
+                                ]);
+                            }
+                            return data;
+                        })()
+                    }]
+                });
+
+            });
+
+        </script>
+    </body>
+</html>
